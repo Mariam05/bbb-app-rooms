@@ -5,7 +5,10 @@ env:
 name: Build Push
 on:
   push:
-    branches: "master"
+    branches: 
+      - master
+      - LTI-127
+
 
 jobs:
   main:
