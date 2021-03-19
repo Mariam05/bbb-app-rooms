@@ -38,6 +38,6 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ github.actor }}/bbb-app-rooms:master
-            ${{ github.actor }}/bbb-app-rooms:latest
+            Mariam05/bbb-app-rooms:master
+            Mariam05/bbb-app-rooms:latest
           build-args: version_code=${{ steps.branch-name.outputs.ref_branch }} (${{ steps.short-sha.outputs.sha }})

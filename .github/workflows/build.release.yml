@@ -1,6 +1,5 @@
 env:
   RUBY_VERSION: 2.7.2
-  REPO: Mariam05
 
 
 name: Build Release
@@ -27,8 +26,8 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ github.actor }}/bbb-app-rooms:latest
-            ${{ github.actor }}/bbb-app-rooms:v2
-            ${{ github.actor }}/bbb-app-rooms:${{ github.event.release.tag_name }}
+            Mariam05/bbb-app-rooms:latest
+            Mariam05/bbb-app-rooms:v2
+            Mariam05/bbb-app-rooms:${{ github.event.release.tag_name }}
           build-args: version_code=${{ github.event.release.tag_name }}
 
