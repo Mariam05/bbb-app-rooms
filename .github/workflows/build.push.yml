@@ -9,7 +9,6 @@ on:
       - master
       - LTI-127
 
-
 jobs:
   main:
     name: Build Docker Image
@@ -39,6 +38,6 @@ jobs:
         with:
           push: true
           tags: |
-            bigbluebutton/bbb-app-rooms:master
-            bigbluebutton/bbb-app-rooms:latest
+            ${{ github.actor }}/bbb-app-rooms:master
+            ${{ github.actor }}/bbb-app-rooms:latest
           build-args: version_code=${{ steps.branch-name.outputs.ref_branch }} (${{ steps.short-sha.outputs.sha }})
