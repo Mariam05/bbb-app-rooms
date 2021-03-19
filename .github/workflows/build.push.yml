@@ -40,4 +40,4 @@ jobs:
           tags: |
             Mariam05/bbb-app-rooms:master
             Mariam05/bbb-app-rooms:latest
-          build-args: version_code=${{ steps.branch-name.outputs.ref_branch }} (${{ steps.short-sha.outputs.sha }})
+          build-args: version_code="${{ steps.branch-name.outputs.ref_branch }}" (${{ steps.short-sha.outputs.sha }})
