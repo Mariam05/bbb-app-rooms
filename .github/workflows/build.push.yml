@@ -38,5 +38,5 @@ jobs:
         with:
           push: true
           tags: |
-            mariam05/bbb-app-rooms:master
-            mariam05/bbb-app-rooms:latest
+            Mariam05/bbb-app-rooms:master
+            Mariam05/bbb-app-rooms:latest
