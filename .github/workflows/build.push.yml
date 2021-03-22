@@ -38,6 +38,6 @@ jobs:
         with:
           push: true
           tags: |
-            Mariam05/bbb-app-rooms:master
-            Mariam05/bbb-app-rooms:latest
+            mariam05/bbb-app-rooms:master
+            mariam05/bbb-app-rooms:latest
           build-args: version_code=testversion
