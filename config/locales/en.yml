@@ -186,6 +186,10 @@ en:
         code:       "IncorrectURLError"
         message:    "Connection error. Your URL is probably incorrect"
         suggestion: "Make sure that the BBB credentials are configured correctly"
+      internalError:
+        code:       "Internal Error"
+        message:    "Could not find any available servers"
+        suggestion: "Please contact the person providing Bigbluebutton IT support"
     room:
       forbidden:
         code:       "AccessForbidden"
