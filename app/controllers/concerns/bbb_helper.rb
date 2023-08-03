@@ -232,7 +232,7 @@ module BbbHelper
 
   # Emulates a builder for initializing the a newly created Bbb::Credentials object.
   def initialize_bbb_credentials
-    bbb_credentials = Bbb::Credentials.new(Rails.configuration.bigbluebutton_endpoint, Rails.configuration.bigbluebutton_secret)
+    bbb_credentials = Bbb::Credentials.new
     bbb_credentials.multitenant_api_endpoint = Rails.configuration.external_multitenant_endpoint
     bbb_credentials.multitenant_api_secret = Rails.configuration.external_multitenant_secret
     bbb_credentials.cache = Rails.cache
