@@ -64,10 +64,12 @@ module Bbb
       end
 
       tenant_info = fetch_tenant_info(tenant)
+      tenant_credentials = JSON.parse(Rails.configuration.tenant_credentials)[tenant]
 
-      raise 'Tenant does not exist' if tenant_info.nil?
+      raise 'Tenant does not exist' if tenant_info.nil? && tenant_settings.nil?
 
-      tenant_settings = tenant_info['settings']
+      # use credentials from broker first, if not found then use env variable
+      tenant_settings = tenant_info['settings'] || tenant_credentials
       api_url = tenant_settings['bigbluebutton_url']
       secret = tenant_settings['bigbluebutton_secret']
 
