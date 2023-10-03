@@ -298,10 +298,12 @@ class RoomsController < ApplicationController
   def launch_room(launch_params, tenant)
     handler = Digest::SHA1.hexdigest("rooms#{tenant}#{launch_params['resource_link_id']}")
     handler_legacy = launch_params['custom_params']['custom_handler_legacy'].presence
+    custom_params = launch_params['custom_params']
 
     ## Any launch.
     @room = Room.find_by(handler: handler, tenant: tenant)
-    return if @room
+    @room&.settings&.[]=('custom_params', custom_params)
+    @room.save && return if @room
 
     # Legacy launch.
     unless handler_legacy.nil?
@@ -352,7 +354,7 @@ class RoomsController < ApplicationController
       all_moderators: message_has_custom?(launch_params, 'all_moderators') || false,
       hide_name: message_has_custom?(launch_params, 'hide_name') || false,
       hide_description: message_has_custom?(launch_params, 'hide_description') || false,
-      settings: message_has_custom?(launch_params, 'settings') || {}
+      settings: message_has_custom?(launch_params, 'settings') || { custom_params: launch_params['custom_params'] }
     )
   end
 

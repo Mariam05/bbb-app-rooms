@@ -24,6 +24,7 @@ module BbbHelper
   RECORDINGS_KEY = :recordings
 
   include RoomsError
+  include BrokerHelper
 
   # Sets a BigBlueButtonApi object for interacting with the API.
   def bbb
@@ -55,6 +56,7 @@ module BbbHelper
     join_options = {}
     join_options[:createTime] = meeting_info[:createTime]
     join_options[:userID] = @user.uid
+    join_options['userdata-external-json'] = userdata_external_json('join')
     bbb.join_meeting_url(@room.handler, @user.username(t("default.bigbluebutton.#{role}")), @room.attributes[role], join_options)
   end
 
@@ -75,6 +77,7 @@ module BbbHelper
       autoStartRecording: string_to_bool(@room.autoStartRecording),
       allowStartStopRecording: string_to_bool(@room.allowStartStopRecording),
       'meta_description': @room.description.truncate(128, separator: ' '),
+      'userdata-external-json': userdata_external_json('create'),
     }
     # Send the create request.
     bbb.create_meeting(@room.name, @room.handler, create_options)
@@ -182,13 +185,13 @@ module BbbHelper
   # Return the number of participants in a meeting for the current room.
   def participant_count
     info = meeting_info
-    return info[:participantCount] if info[:returncode] == 'SUCCESS'
+    info[:participantCount] if info[:returncode] == 'SUCCESS'
   end
 
   # Return the meeting start time for the current room.
   def meeting_start_time
     info = meeting_info
-    return info[:startTime] if info[:returncode] == 'SUCCESS'
+    info[:startTime] if info[:returncode] == 'SUCCESS'
   end
 
   def bigbluebutton_moderator_roles
@@ -267,5 +270,11 @@ module BbbHelper
   # This method converts it to a boolean
   def string_to_bool(value)
     ActiveModel::Type::Boolean.new.cast(value)
+  end
+
+  # Returns a hash of the custom params to be forwarded to bigbluebutton
+  def userdata_external_json(action)
+    custom_params = @room.settings['custom_params']
+    custom_params&.slice(*send("forward_params_#{action}"))
   end
 end

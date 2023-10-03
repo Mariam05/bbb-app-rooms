@@ -21,7 +21,6 @@ class Room < ApplicationRecord
   store_accessor :settings, [:lockSettingsDisableCam, :lockSettingsDisableMic, :lockSettingsDisablePrivateChat, :lockSettingsDisablePublicChat, :lockSettingsDisableNote]
   store_accessor :settings, [:waitForModerator, :allModerators, :record, :autoStartRecording, :allowStartStopRecording]
   after_find :initialize_setting_defaults, if: :settings_blank?
-  after_find :delete_settings
 
   attr_accessor :can_grade
 
