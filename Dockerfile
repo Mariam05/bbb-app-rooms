@@ -24,7 +24,8 @@ RUN apk add --no-cache \
     tzdata \
     gettext \
     imagemagick \
-    shared-mime-info
+    shared-mime-info \
+    libffi-dev
 
 FROM base as builder
 RUN apk add --update --no-cache \
@@ -35,6 +36,7 @@ RUN apk add --update --no-cache \
     postgresql-dev \
     yaml-dev \
     zlib-dev \
+    ruby-dev \
     curl-dev git \
     && ( echo 'install: --no-document' ; echo 'update: --no-document' ) >>/etc/gemrc
 COPY . ./
@@ -62,7 +64,7 @@ ENV PORT=${PORT:-3000}
 EXPOSE ${PORT}
 
 # Precompile assets
-RUN SECRET_KEY_BASE=1 RAILS_ENV=${RAILS_ENV:-production} rake assets:precompile --trace
+RUN SECRET_KEY_BASE=1 RAILS_ENV=${RAILS_ENV:-production} bundle exec rake assets:precompile --trace
 
 # Run startup command
 CMD ["scripts/start.sh"]
