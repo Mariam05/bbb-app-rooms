@@ -40,7 +40,11 @@ module BrokerHelper
   # See whether shared rooms have been enabled in tenant settings. They are disabled by default.
   def shared_rooms_enabled(tenant)
     Rails.cache.fetch("rooms/tenant_settings/shared_rooms_enabled/#{tenant}", expires_in: 1.hour) do
-      tenant_settings(tenant: tenant)&.[]('settings')&.[]('enable_shared_rooms') == 'true' || false
+      tenant_settings(tenant: tenant)&.[]('settings')&.[]('enable_shared_rooms') == 'true'
     end
+  end
+
+  def hide_build_tag(tenant)
+    tenant_settings(tenant: tenant)&.[]('settings')&.[]('hide_build_tag') == 'true'
   end
 end
