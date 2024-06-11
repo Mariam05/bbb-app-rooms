@@ -83,4 +83,7 @@ Rails.application.configure do
   config.hosts = nil
 
   config.web_console.whiny_requests = false
+
+  config.logger = ActiveSupport::Logger.new($stdout)
+  config.log_level = :debug
 end

@@ -52,6 +52,9 @@ class Room < ApplicationRecord
     RECORDING_SETTINGS.include?(setting.to_sym)
   end
 
+  def set_ext_params(lms_custom_params)
+  end
+
   private
 
   def random_password(length, reference = '')

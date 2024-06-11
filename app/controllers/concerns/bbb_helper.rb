@@ -31,6 +31,7 @@ module BbbHelper
     @bbb_credentials ||= initialize_bbb_credentials
     bbb_url = remove_slash(@bbb_credentials.endpoint(@chosen_room.tenant))
     bbb_secret = @bbb_credentials.secret(@chosen_room.tenant)
+    logger.debug("\n\n ***** Room info: #{@chosen_room.to_json}")
     BigBlueButton::BigBlueButtonApi.new(bbb_url, bbb_secret, '1.0', Rails.logger)
   rescue StandardError => e
     logger.error("Error in creating BBB object: #{e}")
@@ -272,4 +273,11 @@ module BbbHelper
   def string_to_bool(value)
     ActiveModel::Type::Boolean.new.cast(value)
   end
+
+  # def ext_params(action)
+  #   ext_params = tenant_setting(@chosen_room.tenant, 'ext_params')
+  #   # ext_params is a hash that has two other hashes nested in it: join and create
+  #   #
+  #   # params_to_pass = ext_params[action]
+  # end
 end
