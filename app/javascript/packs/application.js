@@ -27,4 +27,5 @@ require("packs/rooms.js")
 require("packs/search.js")
 require("flowbite")
 require("channels")
+require("packs/storageAccess.js")
 
