@@ -130,6 +130,9 @@ en:
         record: "Enable Recording"
         autoStartRecording: "Auto Start Recording"
         allowStartStopRecording: "Enable User to Start/Stop Recording"
+        preuploadPresentation: "Pre-upload presentation"
+      preupload:
+        current: "Current Presentation:"
 
     meeting:
       close: "Close Tab/Window"
