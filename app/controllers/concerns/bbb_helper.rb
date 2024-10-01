@@ -89,8 +89,23 @@ module BbbHelper
     add_ext_params('create', create_options)
     logger.debug("[BbbHelper] create_options for room #{@chosen_room.id}: #{create_options}")
 
-    # Send the create request.
-    bbb.create_meeting(@chosen_room.name, @chosen_room.handler, create_options)
+    begin
+      if @chosen_room.presentation.attached?
+        modules = BigBlueButton::BigBlueButtonModules.new
+        url = rails_blob_url(@chosen_room.presentation).gsub('&', '%26')
+        name = @chosen_room.presentation.filename
+        logger.info("Support: Room #{@chosen_room.id} starting using presentation #{name}: #{url}")
+        modules.add_presentation(:url, url, name)
+        # Send the create request.
+        bbb.create_meeting(@chosen_room.name, @chosen_room.handler, create_options, modules)
+      else
+        # Send the create request.
+        bbb.create_meeting(@chosen_room.name, @chosen_room.handler, create_options)
+      end
+    rescue BigBlueButton::BigBlueButtonException => e
+      Rails.logger.error("BigBlueButton failed on create: #{e.key}: #{e.message}")
+      raise e
+    end
   end
 
   # Perform ends meeting for the current room.
