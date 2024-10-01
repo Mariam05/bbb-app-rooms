@@ -130,6 +130,12 @@ en:
         record: "Enable Recording"
         autoStartRecording: "Auto Start Recording"
         allowStartStopRecording: "Enable User to Start/Stop Recording"
+        preuploadPresentation: "Pre-upload presentation"
+      preupload:
+        current: "Current Presentation"
+        clickToUpload: "Click to upload"
+        orDragAndDrop: "or drag and drop"
+        fileTypes: "Upload any office document or PDF file (30 MB max)"
 
     meeting:
       close: "Close Tab/Window"
